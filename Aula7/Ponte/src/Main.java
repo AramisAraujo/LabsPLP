@@ -19,12 +19,20 @@ public class Main {
 				@Override
 				public void run() {
 					ponte.enter(carroA1);
-					ponte.enter(carroA2);
-					ponte.realocateBridge();
-					
-				}
+					}
 			}
 		);
+		
+		Thread  threadCarAB1 = new Thread(
+				new Runnable() {
+					
+					@Override
+					public void run() {
+						ponte.enter(carroA2);
+						ponte.realocateBridge();
+						
+					}
+				});
 		
 		Thread threadCarsBA = new Thread(
 			new Runnable() {
@@ -37,8 +45,9 @@ public class Main {
 			}
 		);
 		
-		threadCarsBA.start();
 		threadCarsAB.start();
+		threadCarsBA.start();
+		threadCarAB1.start();
 	}
 
 }
